@@ -1,0 +1,247 @@
+<!DOCTYPE html>  
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+<link rel="stylesheet" href="css/jquery.mobile-1.1.0.min.css" />
+
+<script type='text/javascript' src="libs/jquery-1.6.4.min.js"></script>
+<script type='text/javascript' src="libs/jquery.mobile-1.1.0.min.js"></script>
+<script type='text/javascript' src="libs/knockout-2.1.0.js"></script>
+
+<script type='text/javascript' src="libs/app-db.js"></script>
+<script type='text/javascript' src="libs/data-model.js"></script>
+</head>
+
+
+<body>
+<div data-role="page" id="page_GradingLevels" data-add-back-btn="true">
+  <div data-role="header">
+    <h3>TES: Grading Syllabus</h3>
+    <a href="#" data-role="button" data-icon="gear"  class="ui-btn-left" data-iconpos="left" data-bind="visible: isReadMode, click: GradingLevelList_ToggleEditClicked">Edit</a>
+     <a href="#" data-role="button" data-icon="cancel"  class="ui-btn-left" data-iconpos="left" data-bind="visible: isEditMode, click: GradingLevelList_ToggleEditClicked">Done</a>
+    <a href="#" data-role="button" data-icon="cancel"  class="ui-btn-right" data-iconpos="left" data-bind="click: GradingLevelList_AddClicked">Add</a>
+  </div>
+  <div data-role="content">
+    
+    <ul  data-role="listview" data-bind="foreach: GradingLevels">
+        <li> 
+        	<a href="#" data-icon="gear" data-bind="click: GradingLevel_ViewClicked, attr: { 'gradingLevel-id': $data.Id }">
+        	<span data-bind="text: $data.Title"></span></a>
+            <a href="#" data-role="button" data-icon="delete" data-bind="visible: $parent.isEditMode, click: GradingLevel_DeleteClicked">Button</a> 
+        </li>
+    </ul>
+  </div>
+  
+<div data-role="footer" data-position="fixed" data-id="footer_Main">
+    <div data-role="navbar" data-iconpos="top">
+        <ul>
+            <li>
+                <a href="#page_Home" data-theme="" data-icon="" data-transition="none">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="#page_GradingLevels" data-theme="" data-icon="" class="ui-btn-active ui-state-persist">
+                    Grading Levels
+                </a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</div>  
+
+<div data-role="page" id="page_GradingLevelDetails">
+  <div data-role="header" id="page_GradingLevelDetails_Header">
+    <h3>Grading level: <span data-bind="text: Title"></span>
+    </h3>
+    <a href="#" data-role="button" data-icon="arrow-l"  class="ui-btn-left" data-iconpos="left" data-bind="click: GradingLevel_CancelClicked">Back</a>
+    <a href="#" data-role="button" data-icon="gear"  class="ui-btn-right" data-iconpos="left" data-bind="click: GradingLevel_SaveClicked">Save</a>
+  </div>
+  <div data-role="content" id="page_GradingLevelDetails_Content">
+     <ul  data-role="listview" data-bind="foreach: Techniques">
+        <li> 
+        	<a href="#" data-icon="gear" data-bind="click: Technique_ViewClicked, attr: { 'technique-id': $data.Id }">
+        	<span data-bind="text: $data.Title"></span></a>
+            <a href="#" data-role="button" data-icon="delete" data-bind="visible: $parent.isEditMode, click: Technique_DeleteClicked">Button</a> 
+        </li>
+    </ul>
+  </div>
+  
+  <div data-role="footer" data-position="fixed" data-id="footer_Main">
+    <div data-role="navbar" data-iconpos="top">
+        <ul>
+            <li>
+                <a href="#page_Home" data-theme="" data-icon="" data-transition="none">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="#page_GradingLevels" data-theme="" data-icon=""   class="ui-btn-active ui-state-persist">
+                    Grading Levels
+                </a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</div> 
+
+<div data-role="page" id="page_TechniqueDetails">
+  <div data-role="header" id="page_TechniqueDetails_Header">
+    <h3>Grading level: <span data-bind="text: Title"></span>
+    </h3>
+    <a href="#" data-role="button" data-icon="arrow-l"  class="ui-btn-left" data-iconpos="left" data-bind="click: GradingLevel_CancelClicked">Back</a>
+    <a href="#" data-role="button" data-icon="gear"  class="ui-btn-right" data-iconpos="left" data-bind="click: GradingLevel_SaveClicked">Save</a>
+  </div>
+  <div data-role="content" id="page_TechniqueDetails_Content">
+	  <h4><span data-bind="text: Title"></span></h4>
+	  
+	  <span data-bind="text: Description"></span>
+	  
+      <div class="tes_centered">
+		<iframe width="420" height="315" id="iframeTechniqueVideo" src="#" frameborder="0" allowfullscreen>
+		</iframe>
+      </div>
+  </div>
+  
+  <div data-role="footer" data-position="fixed" data-id="footer_Main">
+    <div data-role="navbar" data-iconpos="top">
+        <ul>
+            <li>
+                <a href="#page_Home" data-theme="" data-icon="" data-transition="none">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="#page_GradingLevels" data-theme="" data-icon=""   class="ui-btn-active ui-state-persist">
+                    Vehicles
+                </a>
+            </li>
+            <li>
+                <a href="#page_PetrolStations" rel="external" data-theme="" data-icon="" data-transition="none">
+                    Petrol Stations
+                </a>
+            </li>
+            <li>
+                <a href="#page_FuelType" data-theme="" data-icon="" data-transition="none">
+                    Fuel Type
+                </a>
+            </li>
+        </ul>
+    </div>
+  </div>
+</div>  
+
+ <script type="text/javascript">
+	var ReFuelDB = initDB();
+
+	var gradingLevelsModel = new GradingLevelList();
+	var gradLvlTechniquesModel = new TechniqueList();
+
+	var selectedGradingLevel = null;
+	var editedGradingLevel = new GradingLevel();
+		
+	var selectedTechnique = null;
+	var editedTechnique = new Technique(); 
+ 
+ 	//Handle vehicle list page load:
+ 	//Load vehicles list when vehicles page is loading
+	$("#page_GradingLevels").live('pageinit', function(event) {
+		ko.applyBindings(gradingLevelsModel, this);
+		gradingLevelsModel.loadData();
+	});
+
+	//Handle Edit button click:
+	//Enter editor/read only mode
+	function GradingLevelList_ToggleEditClicked(data, args) {
+		data.isEditMode(!data.isEditMode());
+		}
+
+	//Handle new vehicle creation:
+	//create new vehicle, add it to vehicle list, open editor window
+	function GradingLevelList_AddClicked(data, args) {
+		var newLevel = new GradingLevel();
+		newLevel.Title("New Grading Level");
+
+		selectedGradingLevel = newLevel;
+		editedGradingLevel.copy(newLevel);
+
+		$.mobile.changePage( "#page_GradingLevelDetails", { transition: "slide"});
+		
+		}
+
+	//Handle vehicle delete button click:
+	//delete a vehicle, remove vehicle from vehicle list	
+	function GradingLevel_DeleteClicked(obj, args) {
+		gradingLevelsModel.delete(obj);
+		}
+
+	//Handle vehicle selection:
+	//select vehicle, open editor window
+	function GradingLevel_ViewClicked(obj, args) {
+		selectedGradingLevel = obj;
+		editedGradingLevel.copy(obj);
+
+		$.mobile.changePage( "#page_GradingLevelDetails", { transition: "slide"});
+	}
+
+	//Handle vehicle details page load:
+	//bind currently selected vehicle to page controls
+	$("#page_GradingLevelDetails").live("pageinit",  function(event, ui) {
+		ko.applyBindings(editedGradingLevel, document.getElementById("page_GradingLevelDetails_Header"));
+		ko.applyBindings(gradLvlTechniquesModel, document.getElementById("page_GradingLevelDetails_Content"));
+	});
+	
+	$("#page_GradingLevelDetails").live("pagebeforeshow",  function(event, ui) {
+		gradLvlTechniquesModel.loadForGradingLevel(editedGradingLevel.Id());
+	});
+	
+	$("#page_TechniqueDetails").live("pageinit",  function(event, ui) {
+		ko.applyBindings(editedGradingLevel, document.getElementById("page_TechniqueDetails_Header"));
+		ko.applyBindings(editedTechnique, document.getElementById("page_TechniqueDetails_Content"));
+	});
+
+	//Handle vehicle save button click:
+	//save currently selected vehicle, navigate to vehicle list page
+	function GradingLevel_SaveClicked(obj, args) {
+		selectedGradingLevel.copy(editedGradingLevel);
+
+		if (selectedGradingLevel.Id() === undefined)
+			gradingLevelsModel.add(selectedGradingLevel);
+
+		selectedGradingLevel.save();	
+
+		$.mobile.changePage( "#page_GradingLevels", { transition: "slide"});
+	}
+
+	//Handle vehicle cancel button click:
+	//reload currently selected vehicle, navigate to vehicle list page
+	function GradingLevel_CancelClicked(obj, args) {
+		/*if (selectedGradingLevel.Id() === undefined) 
+			gradingLevelsModel.delete(selectedGradingLevel);
+		else 
+			obj.reload();
+			*/
+		$.mobile.changePage( "#page_GradingLevels", { transition: "slide"});
+		}
+		
+	function Technique_ViewClicked(obj, args) {
+		selectedTechnique = obj;
+		editedTechnique.copy(obj);
+		
+		//setting YouTube link value manually, knockout.js doesn't set iframe src in time
+		$("#iframeTechniqueVideo").attr("src", editedTechnique.YouTubeLink());
+		
+		$.mobile.changePage( "#page_TechniqueDetails", { transition: "slide"});
+	}
+
+	function Technique_DeleteClicked(obj, args) {
+		return true;
+	}
+
+ </script>
+</body>  
+</html>
